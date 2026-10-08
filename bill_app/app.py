@@ -19,7 +19,7 @@ QTYdata = st.number_input("Enter the Quantity",min_value=0.01, max_value=100000.
 Pdata = st.number_input("Enter the Unit Price", min_value=0.01, max_value=10000.00, step=0.01)
 TPdata = QTYdata*Pdata
 
-if DJdata:
-    DJlist.append(DJdata)
+if QTYdata:
+    QTYlist.append(QTYdata)
 
-st.write(DJlist)
+st.write(QTYlist)
