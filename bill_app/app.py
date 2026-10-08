@@ -31,9 +31,6 @@ if index == 2:
     pdata = st.number_input("Enter Unit Price", min_value=0.01, max_value=10000.00, step=0.01)
     tpd = qtyd * pdata
     if st.button("Add Data"):
-        DJlist.append(djd)
-        Qtylist.append(qtyd)
-        Plist.append(pdata)
-        TPlist.append(tpd)
+        st.session_state.QTYlist.append(qtyd)
 
-st.write(Qtylist)
+st.write(st.session_state.QTYlist)
