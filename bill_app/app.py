@@ -5,22 +5,38 @@ st.title("Madhav Diamonds")
 st.header("Billing App")
 st.write("Welcome to Madhav Diamonds Billing App, this app will help you to create the bills and manage the data")
 
-DJlist = []
-QTYlist = []
-Plist = []
-TPlist = []
-
 st.divider()
 
 tabdata = {}
 
-length = st.number_input("enter how many data need to add", min_value=1, max_value=9, step=1)
-for i in range(0, length):
-    DJdata = st.selectbox("Choose the Job Description", ["Select Option","DIAMOND JOB"])
-    QTYdata = st.number_input("Enter the Quantity",min_value=0.01, max_value=100000.00, step=0.01)
-    Pdata = st.number_input("Enter the Unit Price", min_value=0.01, max_value=10000.00, step=0.01)
-    TPdata = QTYdata*Pdata
-    QTYlist.append(QTYdata)
+DJlist = []
+Qtylist = []
+Plist = []
+TPlist = []
 
+opt = [1,2,3,4,5,6,7,8,9]
+index = st.selectbox(label="Sr. No.", options=opt)
 
-st.write(QTYlist)
+if index == 1:
+    djd = st.selectbox("Work Description", ["Select the Description", "DIAMOND WORK"])
+    qtyd = st.number_input("Enter Quantity", min_value=0.01, max_value=10000.00, step=0.01)
+    pdata = st.number_input("Enter Unit Price", min_value=0.01, max_value=10000.00, step=0.01)
+    tpd = qtyd * pdata
+    if st.button("Add Data"):
+        DJlist.append(djd)
+        Qtylist.append(qtyd)
+        Plist.append(pdata)
+        TPlist.append(tpd)
+
+if index == 2:
+    djd = st.selectbox("Work Description", ["Select the Description", "DIAMOND WORK"])
+    qtyd = st.number_input("Enter Quantity", min_value=0.01, max_value=10000.00, step=0.01)
+    pdata = st.number_input("Enter Unit Price", min_value=0.01, max_value=10000.00, step=0.01)
+    tpd = qtyd * pdata
+    if st.button("Add Data"):
+        DJlist.append(djd)
+        Qtylist.append(qtyd)
+        Plist.append(pdata)
+        TPlist.append(tpd)
+
+st.write(Qtylist)
