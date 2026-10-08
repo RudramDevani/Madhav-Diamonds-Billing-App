@@ -9,10 +9,10 @@ st.divider()
 
 tabdata = {}
 
-DJlist = []
-Qtylist = []
-Plist = []
-TPlist = []
+if "DJlist" not in st.session_state:
+    st.session_state.DJlist = []
+if "QTYlist" not in st.session_state:
+    st.session_state.QTYlist = []
 
 opt = [1,2,3,4,5,6,7,8,9]
 index = st.selectbox(label="Sr. No.", options=opt)
@@ -23,10 +23,7 @@ if index == 1:
     pdata = st.number_input("Enter Unit Price", min_value=0.01, max_value=10000.00, step=0.01)
     tpd = qtyd * pdata
     if st.button("Add Data"):
-        DJlist.append(djd)
-        Qtylist.append(qtyd)
-        Plist.append(pdata)
-        TPlist.append(tpd)
+        st.session_state.QTYlist.append(qtyd)
 
 if index == 2:
     djd = st.selectbox("Work Description", ["Select the Description", "DIAMOND WORK"])
