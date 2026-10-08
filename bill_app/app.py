@@ -18,16 +18,17 @@ DJlist = []
 QTYlist = []
 Plist = []
 TPlist = []
+while True:
+    if st.button("Add data"):
+        DJlist.append(DJdata)
+        QTYlist.append(QTYdata)
+        Plist.append(Pdata)
+        TPlist.append(TPdata)
+        tabdata["Description"] = DJlist
+        tabdata["Qty"] = QTYlist
+        tabdata["Unit Price"] = Plist
+        tabdata["Total Price"] = TPlist
+    elif st.button("Show Table (only click after adding everything)"):
+        df = pd.DataFrame(tabdata)
+        st.dataframe(df)
 
-if st.button("Add data"):
-    DJlist.append(DJdata)
-    QTYlist.append(QTYdata)
-    Plist.append(Pdata)
-    TPlist.append(TPdata)
-    tabdata["Description"] = DJlist
-    tabdata["Qty"] = QTYlist
-    tabdata["Unit Price"] = Plist
-    tabdata["Total Price"] = TPlist
-
-df = pd.DataFrame(tabdata)
-st.dataframe(df)
