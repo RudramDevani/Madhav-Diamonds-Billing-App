@@ -12,7 +12,7 @@ tabdata = {}
 DJdata = st.selectbox("Choose the Job Description", ["Select Option","DIAMOND JOB"])
 QTYdata = st.text_input("Enter the Quantity")
 Pdata = st.text_input("Enter the Unit Price")
-TPdata = float(QTYdata)*float(Pdata)
+TPdata = QTYdata * Pdata
 
 DJlist = []
 QTYlist = []
