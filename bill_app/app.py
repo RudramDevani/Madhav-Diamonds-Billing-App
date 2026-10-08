@@ -28,7 +28,8 @@ while True:
         tabdata["Qty"] = QTYlist
         tabdata["Unit Price"] = Plist
         tabdata["Total Price"] = TPlist
-    elif st.button("Show Table (only click after adding everything)"):
+    if st.button("Show Table (only click after adding everything)"):
         df = pd.DataFrame(tabdata)
         st.dataframe(df)
+    break
 
