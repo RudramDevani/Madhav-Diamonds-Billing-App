@@ -290,11 +290,7 @@ if st.button("Save PDF Locally"):
     
     # Open a file in binary write mode
     with open(pdf_name, "w+b") as result_file:
-    pisa_status = pisa.CreatePDF(
-        billcode, 
-        dest=result_file,
-        default_css=complete_css  # Overrides the engine layout rules externally
-        
+        pisa_status = pisa.CreatePDF(billcode, dest=result_file, default_css=complete_css)  # Overrides the engine layout rules externally
     # Check if there were errors
     if not pisa_status.err:
         st.success(f"✅ Saved as '{pdf_name}' using pure Python!")
