@@ -1,21 +1,6 @@
 import streamlit as st
 import pandas as pd
-from xhtml2pdf import pisa
-from xhtml2pdf.default import DEFAULT_CSS
-
-pdf_override_css = """
-@page {
-    size: letter;
-    margin: 1cm;
-}
-table, div, blockquote, section {
-    page-break-inside: auto !important;
-}
-tr, p, pre {
-    page-break-inside: avoid !important;
-    page-break-after: auto !important;
-}
-"""
+from playwright.sync_api import sync_playwright
 
 st.title("Madhav Diamonds", text_alignment="center")
 st.header("Billing App", text_alignment="center")
@@ -283,16 +268,28 @@ billcode=f"""<!DOCTYPE html>
 
 st.html(billcode)
 
-complete_css = DEFAULT_CSS + pdf_override_css
+pdf_name = "stored_report.pdf"
 
-if st.button("Save PDF Locally"):
-    pdf_name = "my_report.pdf"
+try:
+    # sync_playwright handles execution line-by-line automatically without loops
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        
+        # Load your HTML layout strings directly
+        page.set_content(billcode)
+        page.emulate_media(media="print")
+        
+        # Save print output to your module folder
+        page.pdf(
+            path=pdf_name,
+            format="A4",
+            print_background=True,
+            margin={"top": "1cm", "bottom": "1cm", "left": "1cm", "right": "1cm"}
+        )
+        browser.close()
     
-    # Open a file in binary write mode
-    with open(pdf_name, "w+b") as result_file:
-        pisa_status = pisa.CreatePDF(billcode, dest=result_file, default_css=complete_css)  # Overrides the engine layout rules externally
-    # Check if there were errors
-    if not pisa_status.err:
-        st.success(f"✅ Saved as '{pdf_name}' using pure Python!")
-    else:
-        st.error("An error occurred during PDF generation.")
+    st.success(f"✅ Invoice saved successfully as '{pdf_name}'!")
+    
+except Exception as e:
+    st.error(f"Failed to generate the browser PDF layout: {e}")
