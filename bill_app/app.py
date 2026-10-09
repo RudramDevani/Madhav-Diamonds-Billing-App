@@ -267,4 +267,9 @@ billcode=f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-st.write(billcode)
+if st.button("Generate Bill"):
+    filename = "Invoice.pdf"
+    pdfkit.from_string(billcode, filename)
+    with open(filename,"rb") as pdf_file:
+        st.write("Bill Generated")
+        st.download_button(label="Download PDF", data=pdf_file, file_name=f"Invoice{Bno}", mime="application/pdf")
