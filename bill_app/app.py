@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-
+import pdfkit
 
 st.title("Madhav Diamonds", text_alignment="center")
 st.header("Billing App", text_alignment="center")
@@ -267,3 +267,14 @@ billcode=f"""<!DOCTYPE html>
 </html>"""
 
 st.html(billcode)
+
+if st.button("Save PDF Locally"):
+    try:
+        # Saving directly to the file name places it in your current folder
+        pdf_name = "my_report.pdf"
+        pdfkit.from_string(billcode, pdf_name)
+        
+        st.success(f"✅ Saved as '{pdf_name}' in your project folder!")
+        
+    except Exception as e:
+        st.error(f"Error: {e}")
