@@ -46,22 +46,3 @@ st.dataframe(df, hide_index=True)
 
 Gt = sum(st.session_state.TPlist)
 st.write("Grand Total: ", Gt)
-
-col1, col2 = st.columns(2)
-
-with col1:
-    delbtn = st.selectbox("Select the row which you want to delete", st.session_state.SRlist)
-    ind = delbtn - 1
-    st.session_state.SRlist.pop()
-    st.session_state.DJlist.pop(ind)
-    st.session_state.QTYlist.pop(ind)
-    st.session_state.Plist.pop(ind)
-    st.session_state.TPlist.pop(ind)
-
-with col2:
-    if st.button("Clear All Data"):
-            st.session_state.SRlist.clear()
-            st.session_state.DJlist.clear()
-            st.session_state.QTYlist.clear()
-            st.session_state.Plist.clear()
-            st.session_state.TPlist.clear()
