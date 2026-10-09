@@ -1,14 +1,18 @@
 import streamlit as st
 import pandas as pd
 
-st.title("Madhav Diamonds")
-st.header("Billing App")
+st.title("Madhav Diamonds", text_alignment="center")
+st.header("Billing App", text_alignment="center")
 st.write("Welcome to Madhav Diamonds Billing App, this app will help you to create the bills and manage the data")
 
 st.divider()
 
 tabdata = {}
 
+if "SRlist" not in st.session_state:
+    st.session_state.SRlist = []
+if "SR" not in st.session_state:
+    st.session_state.SR = 1
 if "DJlist" not in st.session_state:
     st.session_state.DJlist = []
 if "QTYlist" not in st.session_state:
@@ -28,11 +32,36 @@ if st.button("Add Data"):
     st.session_state.QTYlist.append(QTYdata)
     st.session_state.Plist.append(Pdata)
     st.session_state.TPlist.append(TPdata)
+    st.session_state.SRlist.append(st.session_state.SR)
+    st.session_state.SR += 1
 
+tabdata["Sr. No."] = st.session_state.SRlist
 tabdata["Description"] = st.session_state.DJlist
 tabdata["Qty"] = st.session_state.QTYlist
 tabdata["Unit Price"] = st.session_state.Plist
 tabdata["Total Price"] = st.session_state.TPlist
 
 df = pd.DataFrame(tabdata)
-st.dataframe(df)
+st.dataframe(df, hide_index=True)
+
+Gt = sum(st.session_state.TPlist)
+st.write("Grand Total: ", Gt)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    delbtn = st.selectbox("Select the row which you want to delete", st.session_state.SRlist)
+    ind = delbtn - 1
+    st.session_state.SRlist.pop()
+    st.session_state.DJlist.pop(ind)
+    st.session_state.QTYlist.pop(ind)
+    st.session_state.Plist.pop(ind)
+    st.session_state.TPlist.pop(ind)
+
+with col2:
+    if st.button("Clear All Data"):
+            st.session_state.SRlist.clear()
+            st.session_state.DJlist.clear()
+            st.session_state.QTYlist.clear()
+            st.session_state.Plist.clear()
+            st.session_state.TPlist.clear()
