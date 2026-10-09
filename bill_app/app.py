@@ -3,9 +3,20 @@ import pandas as pd
 
 st.title("Madhav Diamonds", text_alignment="center")
 st.header("Billing App", text_alignment="center")
-st.write("Welcome to Madhav Diamonds Billing App, this app will help you to create the bills and manage the data")
+st.write("A billing and business management application developed for Madhav Diamonds to streamline billing operations and improve the efficiency of daily business transactions. The application is designed to simplify invoice generation, manage customer billing details, and maintain organized transaction records through a user-friendly interface.")
 
 st.divider()
+
+Bno = st.number_input("Enter the Bill Number", min_value=1, max_value=10000, step=1)
+c1, c2, c3 = st.columns(3)
+with c1:
+    day = st.number_input("Enter the day", min_value=1, max_value=31, step=1)
+
+with c2:
+    month = st.number_input("Enter the month", min_value=1, max_value=12, step=1)
+
+with c3:
+    year = st.number_input("Enter the year", min_value=2000, max_value=3000, step=1)
 
 tabdata = {}
 
@@ -70,3 +81,6 @@ st.dataframe(df, hide_index=True)
 
 Gt = sum(st.session_state.TPlist)
 st.write("Grand Total: ", Gt)
+
+st.divider()
+
