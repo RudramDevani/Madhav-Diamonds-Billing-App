@@ -1,3 +1,3 @@
-weasyprint
+xhtml2pdf
 pandas
 streamlit
