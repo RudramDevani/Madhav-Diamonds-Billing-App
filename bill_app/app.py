@@ -54,7 +54,7 @@ with col1:
     ind = sno - 1
     if st.button("Delete the Row"):
         st.session_state.SRlist.pop()
-        st.session_state.DJlist.pop(ind)
+        st.session_state.DJlist.pop()
         st.session_state.QTYlist.pop(ind)
         st.session_state.Plist.pop(ind)
         st.session_state.TPlist.pop(ind)
