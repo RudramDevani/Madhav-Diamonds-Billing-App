@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 from playwright.sync_api import sync_playwright
@@ -270,17 +271,33 @@ st.html(billcode)
 
 pdf_name = "stored_report.pdf"
 
+SYSTEM_CHROMIUM_PATHS = [
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
+    "/usr/bin/google-chrome"
+]
+
+# Find which path contains the active system installation
+executable_path = None
+for path in SYSTEM_CHROMIUM_PATHS:
+    if os.path.exists(path):
+        executable_path = path
+        break
+# ──────────────────────────────────────────────────────────────
+
 try:
-    # sync_playwright handles execution line-by-line automatically without loops
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        # Launch the pre-installed system browser directly using executable_path
+        if executable_path:
+            browser = p.chromium.launch(headless=True, executable_path=executable_path)
+        else:
+            # Fallback path if running locally on your computer
+            browser = p.chromium.launch(headless=True)
+            
         page = browser.new_page()
-        
-        # Load your HTML layout strings directly
         page.set_content(billcode)
         page.emulate_media(media="print")
         
-        # Save print output to your module folder
         page.pdf(
             path=pdf_name,
             format="A4",
