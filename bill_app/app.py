@@ -13,24 +13,25 @@ if "DJlist" not in st.session_state:
     st.session_state.DJlist = []
 if "QTYlist" not in st.session_state:
     st.session_state.QTYlist = []
+if "Plist" not in st.session_state:
+    st.session_state.Plist = []
+if "TPlist" not in st.session_state:
+    st.session_state.TPlist = []
 
-opt = [1,2,3,4,5,6,7,8,9]
-index = st.selectbox(label="Sr. No.", options=opt)
+DJdata = st.selectbox("Select the Work Description", ['DIAMOND JOB'])
+QTYdata = st.number_input("Enter the Quantity", min_value=0.01, max_value=10000.00, step=0.01)
+Pdata = st.number_input("Enter the Unit Price", min_value=0.01, max_value=10000.00, step=0.01 )
+TPdata = QTYdata * Pdata
 
-if index == 1:
-    djd = st.selectbox("Work Description", ["Select the Description", "DIAMOND WORK"])
-    qtyd = st.number_input("Enter Quantity", min_value=0.01, max_value=10000.00, step=0.01)
-    pdata = st.number_input("Enter Unit Price", min_value=0.01, max_value=10000.00, step=0.01)
-    tpd = qtyd * pdata
-    if st.button("Add Data"):
-        st.session_state.QTYlist.append(qtyd)
+st.session_state.DJlist.append(DJdata)
+st.session_state.QTYlist.append(QTYdata)
+st.session_state.Plist.append(Pdata)
+st.session_state.TPlist.append(TPdata)
 
-if index == 2:
-    djd = st.selectbox("Work Description", ["Select the Description", "DIAMOND WORK"])
-    qtyd = st.number_input("Enter Quantity", min_value=0.01, max_value=10000.00, step=0.01)
-    pdata = st.number_input("Enter Unit Price", min_value=0.01, max_value=10000.00, step=0.01)
-    tpd = qtyd * pdata
-    if st.button("Add Data"):
-        st.session_state.QTYlist.append(qtyd)
+tabdata["Description"] = st.session_state.DJlist
+tabdata["Qty"] = st.session_state.QTYlist
+tabdata["Unit Price"] = st.session_state.Plist
+tabdata["Total Price"] = st.session_state.TPlist
 
-st.write(st.session_state.QTYlist)
+df = pd.DataFrame(tabdata)
+st.dataframe(df)
