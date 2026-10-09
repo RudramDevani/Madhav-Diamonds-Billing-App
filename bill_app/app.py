@@ -1,4 +1,3 @@
-from weasyprint import HTML
 import streamlit as st
 import pandas as pd
 
@@ -267,9 +266,4 @@ billcode=f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-if st.button("Generate Bill"):
-    filename = "Invoice.pdf"
-    HTML(string=billcode).write_pdf(filename)
-    with open(filename,"rb") as pdf_file:
-        st.write("Bill Generated")
-        st.download_button(label="Download PDF", data=pdf_file, file_name=f"Invoice{Bno}", mime="application/pdf")
+st.html(billcode)
