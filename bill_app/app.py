@@ -1,6 +1,21 @@
 import streamlit as st
 import pandas as pd
 from xhtml2pdf import pisa
+from xhtml2pdf.default import DEFAULT_CSS
+
+pdf_override_css = """
+@page {
+    size: letter;
+    margin: 1cm;
+}
+table, div, blockquote, section {
+    page-break-inside: auto !important;
+}
+tr, p, pre {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+}
+"""
 
 st.title("Madhav Diamonds", text_alignment="center")
 st.header("Billing App", text_alignment="center")
@@ -268,13 +283,19 @@ billcode=f"""<!DOCTYPE html>
 
 st.html(billcode)
 
+complete_css = DEFAULT_CSS + pdf_override_css
+
+    )
+
 if st.button("Save PDF Locally"):
     pdf_name = "my_report.pdf"
     
     # Open a file in binary write mode
     with open(pdf_name, "w+b") as result_file:
-        # Convert HTML to PDF directly
-        pisa_status = pisa.CreatePDF(billcode, dest=result_file)
+    pisa_status = pisa.CreatePDF(
+        billcode, 
+        dest=result_file,
+        default_css=complete_css  # Overrides the engine layout rules externally
         
     # Check if there were errors
     if not pisa_status.err:
