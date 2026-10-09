@@ -267,6 +267,4 @@ billcode=f"""<!DOCTYPE html>
 </body>
 </html>"""
 
-filename = "Invoice.pdf"
-
-pdfkit.from_string(billcode, filename)
+st.write(billcode)
