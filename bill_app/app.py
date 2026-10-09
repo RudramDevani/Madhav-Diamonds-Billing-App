@@ -23,10 +23,11 @@ QTYdata = st.number_input("Enter the Quantity", min_value=0.01, max_value=10000.
 Pdata = st.number_input("Enter the Unit Price", min_value=0.01, max_value=10000.00, step=0.01 )
 TPdata = QTYdata * Pdata
 
-st.session_state.DJlist.append(DJdata)
-st.session_state.QTYlist.append(QTYdata)
-st.session_state.Plist.append(Pdata)
-st.session_state.TPlist.append(TPdata)
+if st.button("Add Data"):
+    st.session_state.DJlist.append(DJdata)
+    st.session_state.QTYlist.append(QTYdata)
+    st.session_state.Plist.append(Pdata)
+    st.session_state.TPlist.append(TPdata)
 
 tabdata["Description"] = st.session_state.DJlist
 tabdata["Qty"] = st.session_state.QTYlist
