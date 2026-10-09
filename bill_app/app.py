@@ -46,3 +46,25 @@ st.dataframe(df, hide_index=True)
 
 Gt = sum(st.session_state.TPlist)
 st.write("Grand Total: ", Gt)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    sno = st.number_input("Enter Sr. No. you want to delete", min_value = 1, max_value = 9, step=1)
+    ind = sno - 1
+    if st.button("Delete the Row"):
+        st.session_state.SRlist.pop()
+        st.session_state.DJlist.pop(ind)
+        st.session_state.QTYlist.pop(ind)
+        st.session_state.Plist.pop(ind)
+        st.session_state.TPlist.pop(ind)
+        st.session_state.SR -= 1
+
+with col2:
+    if st.button("Delete All"):
+        st.session_state.SRlist.clear()
+        st.session_state.DJlist.clear()
+        st.session_state.QTYlist.clear()
+        st.session_state.Plist.clear()
+        st.session_state.TPlist.clear()
+        st.session_state.SR = 1
