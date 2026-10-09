@@ -1,7 +1,7 @@
-import os
+
 import streamlit as st
 import pandas as pd
-from playwright.sync_api import sync_playwright
+import subprocess, sys, tempfile, os
 
 st.title("Madhav Diamonds", text_alignment="center")
 st.header("Billing App", text_alignment="center")
@@ -197,7 +197,7 @@ billcode=f"""<!DOCTYPE html>
   @page{{size:A4;margin:0}}
   @media print{{
     body{{background:#fff;padding:0;display:block}}
-    .page{{box-shadow:none;margin:0}}
+    .page{{box-shadow:none;margin:0;height:1122px;overflow:hidden}}
     *{{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
   }}
 </style>
@@ -269,44 +269,43 @@ billcode=f"""<!DOCTYPE html>
 
 st.html(billcode)
 
-pdf_name = "stored_report.pdf"
+@st.cache_data(show_spinner="Creating PDF...")
+def html_to_pdf(html: str) -> bytes:
+    with tempfile.TemporaryDirectory() as tmp:
+        html_path = os.path.join(tmp, "invoice.html")
+        pdf_path = os.path.join(tmp, "invoice.pdf")
 
-SYSTEM_CHROMIUM_PATHS = [
-    "/usr/bin/chromium",
-    "/usr/bin/chromium-browser",
-    "/usr/bin/google-chrome"
-]
+        with open(html_path, "w", encoding="utf-8") as f:
+            f.write(html)
 
-# Find which path contains the active system installation
-executable_path = None
-for path in SYSTEM_CHROMIUM_PATHS:
-    if os.path.exists(path):
-        executable_path = path
-        break
-# ──────────────────────────────────────────────────────────────
-
-try:
-    with sync_playwright() as p:
-        # Launch the pre-installed system browser directly using executable_path
-        if executable_path:
-            browser = p.chromium.launch(headless=True, executable_path=executable_path)
-        else:
-            # Fallback path if running locally on your computer
-            browser = p.chromium.launch(headless=True)
-            
-        page = browser.new_page()
-        page.set_content(billcode)
-        page.emulate_media(media="print")
-        
-        page.pdf(
-            path=pdf_name,
-            format="A4",
-            print_background=True,
-            margin={"top": "1cm", "bottom": "1cm", "left": "1cm", "right": "1cm"}
+        script = f'''
+from playwright.sync_api import sync_playwright
+import pathlib
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto(pathlib.Path(r"{html_path}").as_uri(), wait_until="networkidle")
+    page.pdf(path=r"{pdf_path}", format="A4", print_background=True,
+             margin={{"top": "0", "right": "0", "bottom": "0", "left": "0"}})
+    browser.close()
+'''
+        result = subprocess.run(
+            [sys.executable, "-c", script],
+            capture_output=True, text=True
         )
-        browser.close()
-    
-    st.success(f"✅ Invoice saved successfully as '{pdf_name}'!")
-    
-except Exception as e:
-    st.error(f"Failed to generate the browser PDF layout: {e}")
+        if result.returncode != 0:
+            raise RuntimeError(result.stderr)
+
+        with open(pdf_path, "rb") as f:
+            return f.read()
+
+st.html(billcode)  # preview on screen
+
+pdf_bytes = html_to_pdf(billcode)
+
+st.download_button(
+    label="Download Invoice PDF",
+    data=pdf_bytes,
+    file_name=f"Invoice_{billno}.pdf",
+    mime="application/pdf",
+)
