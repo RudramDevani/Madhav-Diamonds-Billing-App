@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import pdfkit
+from xhtml2pdf import pisa
 
 st.title("Madhav Diamonds", text_alignment="center")
 st.header("Billing App", text_alignment="center")
@@ -269,12 +269,15 @@ billcode=f"""<!DOCTYPE html>
 st.html(billcode)
 
 if st.button("Save PDF Locally"):
-    try:
-        # Saving directly to the file name places it in your current folder
-        pdf_name = "my_report.pdf"
-        pdfkit.from_string(billcode, pdf_name)
+    pdf_name = "my_report.pdf"
+    
+    # Open a file in binary write mode
+    with open(pdf_name, "w+b") as result_file:
+        # Convert HTML to PDF directly
+        pisa_status = pisa.CreatePDF(billcode, dest=result_file)
         
-        st.success(f"✅ Saved as '{pdf_name}' in your project folder!")
-        
-    except Exception as e:
-        st.error(f"Error: {e}")
+    # Check if there were errors
+    if not pisa_status.err:
+        st.success(f"✅ Saved as '{pdf_name}' using pure Python!")
+    else:
+        st.error("An error occurred during PDF generation.")
