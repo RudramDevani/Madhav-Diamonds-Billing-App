@@ -3,6 +3,47 @@ import streamlit as st
 import pandas as pd
 import subprocess, sys, tempfile, os
 
+@st.cache_resource(show_spinner="Setting up PDF engine (first run only)...")
+def install_chromium():
+    subprocess.run(
+        [sys.executable, "-m", "playwright", "install", "chromium"],
+        check=True,
+    )
+
+install_chromium()
+
+@st.cache_data(show_spinner="Creating PDF...")
+def html_to_pdf(html: str) -> bytes:
+    with tempfile.TemporaryDirectory() as tmp:
+        html_path = os.path.join(tmp, "invoice.html")
+        pdf_path = os.path.join(tmp, "invoice.pdf")
+
+        with open(html_path, "w", encoding="utf-8") as f:
+            f.write(html)
+
+        script = f'''
+from playwright.sync_api import sync_playwright
+import pathlib
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto(pathlib.Path(r"{html_path}").as_uri(), wait_until="networkidle")
+    page.pdf(path=r"{pdf_path}", format="A4", print_background=True,
+             margin={{"top": "0", "right": "0", "bottom": "0", "left": "0"}})
+    browser.close()
+'''
+        result = subprocess.run(
+            [sys.executable, "-c", script],
+            capture_output=True, text=True
+        )
+        if result.returncode != 0:
+            raise RuntimeError(result.stderr[-1500:])
+
+        with open(pdf_path, "rb") as f:
+            return f.read()
+
+#our start from here
+
 st.title("Madhav Diamonds", text_alignment="center")
 st.header("Billing App", text_alignment="center")
 st.write("A billing and business management application developed for Madhav Diamonds to streamline billing operations and improve the efficiency of daily business transactions. The application is designed to simplify invoice generation, manage customer billing details, and maintain organized transaction records through a user-friendly interface.")
@@ -268,38 +309,6 @@ billcode=f"""<!DOCTYPE html>
 </html>"""
 
 st.html(billcode)
-
-@st.cache_data(show_spinner="Creating PDF...")
-def html_to_pdf(html: str) -> bytes:
-    with tempfile.TemporaryDirectory() as tmp:
-        html_path = os.path.join(tmp, "invoice.html")
-        pdf_path = os.path.join(tmp, "invoice.pdf")
-
-        with open(html_path, "w", encoding="utf-8") as f:
-            f.write(html)
-
-        script = f'''
-from playwright.sync_api import sync_playwright
-import pathlib
-with sync_playwright() as p:
-    browser = p.chromium.launch()
-    page = browser.new_page()
-    page.goto(pathlib.Path(r"{html_path}").as_uri(), wait_until="networkidle")
-    page.pdf(path=r"{pdf_path}", format="A4", print_background=True,
-             margin={{"top": "0", "right": "0", "bottom": "0", "left": "0"}})
-    browser.close()
-'''
-        result = subprocess.run(
-            [sys.executable, "-c", script],
-            capture_output=True, text=True
-        )
-        if result.returncode != 0:
-            raise RuntimeError(result.stderr)
-
-        with open(pdf_path, "rb") as f:
-            return f.read()
-
-st.html(billcode)  # preview on screen
 
 pdf_bytes = html_to_pdf(billcode)
 
