@@ -285,8 +285,6 @@ st.html(billcode)
 
 complete_css = DEFAULT_CSS + pdf_override_css
 
-    )
-
 if st.button("Save PDF Locally"):
     pdf_name = "my_report.pdf"
     
