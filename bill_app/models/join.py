@@ -1,4 +1,4 @@
-from billscrap import htmlcode
+from models.billscrap import htmlcode
 import pdfkit
 
 filename = "Invoice.pdf"
