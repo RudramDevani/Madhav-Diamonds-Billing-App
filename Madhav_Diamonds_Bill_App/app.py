@@ -123,7 +123,7 @@ QTYL = st.session_state.QTYlist
 PL = st.session_state.Plist
 TPL = st.session_state.TPlist
 
-Hcode = htmlcode(Bdate, Bno, DJL, QTYL, PL, TPL, Gt)
+Hcode = htmlcode(Bdate, Bno, DJL, QTYL, PL, TPL, Gt, Bname)
 
 pdf_bytes = html_to_pdf(Hcode)
 
