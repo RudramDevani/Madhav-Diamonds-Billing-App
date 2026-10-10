@@ -137,5 +137,4 @@ st.download_button(
 st.divider()
 
 st.caption("Made with Love")
-st.caption("Developeed by: Rudram Devani")
-st.link_button(label="LinkedIn", url="www.linkedin.com/in/rudram-devani-56aa44353")
+st.caption("Developed by: Rudram Devani")
