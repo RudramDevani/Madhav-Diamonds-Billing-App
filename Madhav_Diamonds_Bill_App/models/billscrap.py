@@ -1,5 +1,6 @@
 def htmlcode(Bdt,bno,djl,qtyl,pl,tpl,gt, Bnm):
-  date = Bdt
+  import datetime
+  date = f"{Bdt: %d-%m-%y}"
   billno = bno
   
   DJ1 = DJ2 = DJ3 = DJ4 = DJ5 = DJ6 = DJ7 = DJ8 = DJ9 = ""
