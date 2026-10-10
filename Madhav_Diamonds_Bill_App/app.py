@@ -51,18 +51,8 @@ st.write("A billing and business management application developed for Madhav Dia
 st.divider()
 
 Bno = st.number_input("Enter the Bill Number", min_value=1, max_value=10000, step=1)
-c1, c2, c3 = st.columns(3)
 Bdt = st.date_input(label="Enter the Invoice Date",format="DD/MM/YYYY")
 Bname = st.text_input("Enter the Name Invoice for")
-
-with c1:
-    day = st.number_input("Enter the day", min_value=1, max_value=31, step=1)
-
-with c2:
-    month = st.number_input("Enter the month", min_value=1, max_value=12, step=1)
-
-with c3:
-    year = st.number_input("Enter the year", min_value=2000, max_value=3000, step=1)
 
 tabdata = {}
 
