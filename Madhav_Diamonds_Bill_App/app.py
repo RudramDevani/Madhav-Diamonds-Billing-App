@@ -52,7 +52,7 @@ st.divider()
 
 Bno = st.number_input("Enter the Bill Number", min_value=1, max_value=10000, step=1)
 c1, c2, c3 = st.columns(3)
-Bdt = st.date_input(format="DD/MM/YYYY")
+Bdt = st.date_input(label="Enter the Invoice Date",format="DD/MM/YYYY")
 Bname = st.text_input("Enter the Name Invoice for")
 
 with c1:
