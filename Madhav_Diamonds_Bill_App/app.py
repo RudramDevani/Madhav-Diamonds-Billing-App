@@ -50,9 +50,9 @@ st.write("A billing and business management application developed for Madhav Dia
 
 st.divider()
 
-Bno = st.number_input("Enter the Bill Number", min_value=1, max_value=10000, step=1)
-Bdate = st.date_input(label="Enter the Invoice Date",format="DD/MM/YYYY")
-Bname = st.text_input("Enter the Name Invoice for")
+Bno = st.number_input("Bill Number", min_value=1, max_value=10000, step=1)
+Bdate = st.date_input(label="Invoice Date",format="DD/MM/YYYY")
+Bname = st.text_input("Name of Invoice")
 
 tabdata = {}
 
@@ -133,3 +133,9 @@ st.download_button(
     file_name=f"Invoice_{Bno}.pdf",
     mime="application/pdf",
 )
+
+st.divider()
+
+st.caption("Made with Love")
+st.caption("Developeed by: Rudram Devani")
+st.link_button(label="LinkedIn", url="www.linkedin.com/in/rudram-devani-56aa44353")
