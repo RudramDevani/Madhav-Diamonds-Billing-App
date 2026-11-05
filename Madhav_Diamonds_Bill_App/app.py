@@ -53,8 +53,12 @@ st.divider()
 Bno = st.number_input("Bill Number", min_value=1, max_value=10000, step=1)
 Bdate = st.date_input(label="Invoice Date",format="DD/MM/YYYY")
 Bname = st.selectbox("Name on Invoice", ['MEERA GEMS'])
-Badd = st.selectbox("Address Location", ['PLOT 1 to 5, KOHNOOR INDUSTRIAL ESTATE, VARACHHA SURAT - 395006'])
-BGno = st.selectbox("GST Number", ['24AAXFM9362Q1Z3'])
+if Bname == 'MEERA GEMS':
+    Badd = 'PLOT 1 to 5, KOHNOOR INDUSTRIAL ESTATE, VARACHHA SURAT - 395006'
+    BGno = '24AAXFM9362Q1Z3'
+
+#Badd = st.selectbox("Address Location", ['PLOT 1 to 5, KOHNOOR INDUSTRIAL ESTATE, VARACHHA SURAT - 395006'])
+#BGno = st.selectbox("GST Number", ['24AAXFM9362Q1Z3'])
 
 tabdata = {}
 
