@@ -1,4 +1,4 @@
-def htmlcode(Bdt,bno,djl,qtyl,pl,tpl,gt, Bnm):
+def htmlcode(Bdt,bno,djl,qtyl,pl,tpl,gt,Bnm,Add,Gno):
   import datetime
   date = f"{Bdt: %d-%m-%Y}"
   billno = bno
@@ -132,10 +132,10 @@ def htmlcode(Bdt,bno,djl,qtyl,pl,tpl,gt, Bnm):
     <div class="abs val" style="left:566px;top:316px">{date}</div>
 
     <div class="abs lbl" style="left:128px;top:343px;font-size:13.5px">GSTN</div>
-    <div class="abs val" style="left:322px;top:343px">24AAXFM9362Q1Z3</div>
+    <div class="abs val" style="left:322px;top:343px">{Gno}</div>
 
     <div class="abs lbl" style="left:128px;top:364px;font-size:13.5px">ADDRESS</div>
-    <div class="abs val" style="left:128px;top:388px">PLOT 1 to 5, KOHNOOR INDUSTRIAL ESTATE, VARACHHA SURAT - 395006</div>
+    <div class="abs val" style="left:128px;top:388px">{Add}</div>
 
     <div class="abs divider"></div>
 
