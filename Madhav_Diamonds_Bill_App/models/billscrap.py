@@ -5,7 +5,7 @@ def htmlcode(Bdt,bno,djl,qtyl,pl,tpl,gt,Bnm,Add,Gno):
   
   DJ1 = DJ2 = DJ3 = DJ4 = DJ5 = DJ6 = DJ7 = DJ8 = DJ9 = ""
   Q1 = Q2 = Q3 = Q4 = Q5 = Q6 = Q7 = Q8 = Q9 = ""
-  P1 = P2 = P3 = P4 = P5 = P6 = P7 = P8 = P9 = ""
+  P1 = P2 = P3 = P4 = P5 = P6 = P7 = P8 = P9 = None
   TP1 = TP2 = TP3 = TP4 = TP5 = TP6 = TP7 = TP8 = TP9 = 0.00
 
   desc = [DJ1, DJ2, DJ3, DJ4, DJ5, DJ6, DJ7, DJ8, DJ9]
