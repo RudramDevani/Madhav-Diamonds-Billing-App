@@ -5,7 +5,7 @@ def htmlcode(Bdt,bno,djl,qtyl,pl,tpl,gt,Bnm,Add,Gno):
   
   DJ1 = DJ2 = DJ3 = DJ4 = DJ5 = DJ6 = DJ7 = DJ8 = DJ9 = ""
   Q1 = Q2 = Q3 = Q4 = Q5 = Q6 = Q7 = Q8 = Q9 = ""
-  P1 = P2 = P3 = P4 = P5 = P6 = P7 = P8 = P9 = None
+  P1 = P2 = P3 = P4 = P5 = P6 = P7 = P8 = P9 = ""
   TP1 = TP2 = TP3 = TP4 = TP5 = TP6 = TP7 = TP8 = TP9 = 0.00
 
   desc = [DJ1, DJ2, DJ3, DJ4, DJ5, DJ6, DJ7, DJ8, DJ9]
@@ -145,15 +145,15 @@ def htmlcode(Bdt,bno,djl,qtyl,pl,tpl,gt,Bnm,Add,Gno):
         <tr><th>Description</th><th>Qty</th><th>Unit price</th><th>Total price</th></tr>
       </thead>
       <tbody>
-        <tr><td>{desc[0]}</td><td>{qty[0]}</td><td>{pricel[0]:.2f}</td><td>₹{totalpricel[0]:.2f}</td></tr>
-        <tr><td>{desc[1]}</td><td>{qty[1]}</td><td>{pricel[1]:.2f}</td><td>₹{totalpricel[1]:.2f}</td></tr>
-        <tr><td>{desc[2]}</td><td>{qty[2]}</td><td>{pricel[2]:.2f}</td><td>₹{totalpricel[2]:.2f}</td></tr>
-        <tr><td>{desc[3]}</td><td>{qty[3]}</td><td>{pricel[3]:.2f}</td><td>₹{totalpricel[3]:.2f}</td></tr>
-        <tr><td>{desc[4]}</td><td>{qty[4]}</td><td>{pricel[4]:.2f}</td><td>₹{totalpricel[4]:.2f}</td></tr>
-        <tr><td>{desc[5]}</td><td>{qty[5]}</td><td>{pricel[5]:.2f}</td><td>₹{totalpricel[5]:.2f}</td></tr>
-        <tr><td>{desc[6]}</td><td>{qty[6]}</td><td>{pricel[6]:.2f}</td><td>₹{totalpricel[6]:.2f}</td></tr>
-        <tr><td>{desc[7]}</td><td>{qty[7]}</td><td>{pricel[7]:.2f}</td><td>₹{totalpricel[7]:.2f}</td></tr>
-        <tr><td>{desc[8]}</td><td>{qty[8]}</td><td>{pricel[8]:.2f}</td><td>₹{totalpricel[8]:.2f}</td></tr>
+        <tr><td>{desc[0]}</td><td>{qty[0]}</td><td>{pricel[0]}</td><td>₹{totalpricel[0]:.2f}</td></tr>
+        <tr><td>{desc[1]}</td><td>{qty[1]}</td><td>{pricel[1]}</td><td>₹{totalpricel[1]:.2f}</td></tr>
+        <tr><td>{desc[2]}</td><td>{qty[2]}</td><td>{pricel[2]}</td><td>₹{totalpricel[2]:.2f}</td></tr>
+        <tr><td>{desc[3]}</td><td>{qty[3]}</td><td>{pricel[3]}</td><td>₹{totalpricel[3]:.2f}</td></tr>
+        <tr><td>{desc[4]}</td><td>{qty[4]}</td><td>{pricel[4]}</td><td>₹{totalpricel[4]:.2f}</td></tr>
+        <tr><td>{desc[5]}</td><td>{qty[5]}</td><td>{pricel[5]}</td><td>₹{totalpricel[5]:.2f}</td></tr>
+        <tr><td>{desc[6]}</td><td>{qty[6]}</td><td>{pricel[6]}</td><td>₹{totalpricel[6]:.2f}</td></tr>
+        <tr><td>{desc[7]}</td><td>{qty[7]}</td><td>{pricel[7]}</td><td>₹{totalpricel[7]:.2f}</td></tr>
+        <tr><td>{desc[8]}</td><td>{qty[8]}</td><td>{pricel[8]}</td><td>₹{totalpricel[8]:.2f}</td></tr>
       </tbody>
     </table>
 
